@@ -77,8 +77,6 @@ final class Content extends APIContent
     }
 
     /**
-     * @param array<mixed> $contentTypeIdentifiers
-     *
      * @return \Pagerfanta\Pagerfanta<\Netgen\IbexaSiteApi\API\Values\Content>
      */
     public function filterFieldRelations(
@@ -101,8 +99,6 @@ final class Content extends APIContent
     }
 
     /**
-     * @param array<mixed> $contentTypeIdentifiers
-     *
      * @return \Pagerfanta\Pagerfanta<\Netgen\IbexaSiteApi\API\Values\Location>
      */
     public function filterFieldRelationLocations(
@@ -125,8 +121,6 @@ final class Content extends APIContent
     }
 
     /**
-     * @param array<mixed> $contentTypeIdentifiers
-     *
      * @return \Pagerfanta\Pagerfanta<\Netgen\IbexaSiteApi\API\Values\Content>
      */
     public function filterSudoFieldRelations(
@@ -149,11 +143,77 @@ final class Content extends APIContent
     }
 
     /**
-     * @param array<mixed> $contentTypeIdentifiers
-     *
      * @return \Pagerfanta\Pagerfanta<\Netgen\IbexaSiteApi\API\Values\Location>
      */
     public function filterSudoFieldRelationLocations(
+        string $fieldDefinitionIdentifier,
+        array $contentTypeIdentifiers = [],
+        int $maxPerPage = 25,
+        int $currentPage = 1,
+    ): Pagerfanta {
+        return new Pagerfanta(new Adapter());
+    }
+
+    public function getReverseFieldRelations(string $fieldDefinitionIdentifier, int $limit = 25): array
+    {
+        return [];
+    }
+
+    public function getSudoReverseFieldRelations(string $fieldDefinitionIdentifier, int $limit = 25): array
+    {
+        return [];
+    }
+
+    /**
+     * @return \Pagerfanta\Pagerfanta<\Netgen\IbexaSiteApi\API\Values\Content>
+     */
+    public function filterReverseFieldRelations(
+        string $fieldDefinitionIdentifier,
+        array $contentTypeIdentifiers = [],
+        int $maxPerPage = 25,
+        int $currentPage = 1,
+    ): Pagerfanta {
+        return new Pagerfanta(new Adapter());
+    }
+
+    /**
+     * @return \Pagerfanta\Pagerfanta<\Netgen\IbexaSiteApi\API\Values\Content>
+     */
+    public function filterSudoReverseFieldRelations(
+        string $fieldDefinitionIdentifier,
+        array $contentTypeIdentifiers = [],
+        int $maxPerPage = 25,
+        int $currentPage = 1,
+    ): Pagerfanta {
+        return new Pagerfanta(new Adapter());
+    }
+
+    public function getReverseFieldRelationLocations(string $fieldDefinitionIdentifier, int $limit = 25): array
+    {
+        return [];
+    }
+
+    public function getSudoReverseFieldRelationLocations(string $fieldDefinitionIdentifier, int $limit = 25): array
+    {
+        return [];
+    }
+
+    /**
+     * @return \Pagerfanta\Pagerfanta<\Netgen\IbexaSiteApi\API\Values\Location>
+     */
+    public function filterReverseFieldRelationLocations(
+        string $fieldDefinitionIdentifier,
+        array $contentTypeIdentifiers = [],
+        int $maxPerPage = 25,
+        int $currentPage = 1,
+    ): Pagerfanta {
+        return new Pagerfanta(new Adapter());
+    }
+
+    /**
+     * @return \Pagerfanta\Pagerfanta<\Netgen\IbexaSiteApi\API\Values\Location>
+     */
+    public function filterSudoReverseFieldRelationLocations(
         string $fieldDefinitionIdentifier,
         array $contentTypeIdentifiers = [],
         int $maxPerPage = 25,
@@ -176,5 +236,10 @@ final class Content extends APIContent
     public function getUrl(array $parameters = []): string
     {
         return 'https://netgen.io/example';
+    }
+
+    public function getDebugInfo(): array
+    {
+        return [];
     }
 }

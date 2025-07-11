@@ -58,4 +58,9 @@ final class Location extends APILocation
     {
         return [];
     }
+
+    public function getDebugInfo(): array
+    {
+        return [];
+    }
 }

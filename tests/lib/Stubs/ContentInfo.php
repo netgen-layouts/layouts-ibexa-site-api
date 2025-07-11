@@ -19,4 +19,9 @@ final class ContentInfo extends APIContentInfo
     protected ?int $mainLocationId;
 
     protected ?Location $mainLocation;
+
+    public function getDebugInfo(): array
+    {
+        return [];
+    }
 }
