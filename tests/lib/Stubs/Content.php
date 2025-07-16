@@ -66,7 +66,7 @@ final class Content extends APIContent
         return new Pagerfanta(new Adapter());
     }
 
-    public function getFieldRelation(string $fieldDefinitionIdentifier): ?APIContent
+    public function getFieldRelation(string $fieldDefinitionIdentifier): APIContent
     {
         return new self();
     }
@@ -110,7 +110,7 @@ final class Content extends APIContent
         return new Pagerfanta(new Adapter());
     }
 
-    public function getSudoFieldRelation(string $fieldDefinitionIdentifier): ?APIContent
+    public function getSudoFieldRelation(string $fieldDefinitionIdentifier): APIContent
     {
         return new self();
     }
