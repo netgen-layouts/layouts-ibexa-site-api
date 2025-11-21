@@ -17,7 +17,10 @@ final class ContentValueConverter implements ValueConverterInterface
     /**
      * @param \Netgen\Layouts\Item\ValueConverterInterface<\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo> $innerConverter
      */
-    public function __construct(private ValueConverterInterface $innerConverter, private LoadService $loadService) {}
+    public function __construct(
+        private ValueConverterInterface $innerConverter,
+        private LoadService $loadService,
+    ) {}
 
     public function supports(object $object): bool
     {
@@ -36,7 +39,7 @@ final class ContentValueConverter implements ValueConverterInterface
     public function getId(object $object): int
     {
         if ($object instanceof ContentInfo) {
-            return (int) $object->id;
+            return $object->id;
         }
 
         return (int) $this->innerConverter->getId($object);

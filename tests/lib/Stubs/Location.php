@@ -31,10 +31,10 @@ final class Location extends APILocation
      */
     public function filterChildren(array $contentTypeIdentifiers = [], int $maxPerPage = 25, int $currentPage = 1): Pagerfanta
     {
-        return new Pagerfanta(new Adapter());
+        return new Pagerfanta(new LocationAdapter());
     }
 
-    public function getFirstChild(?string $contentTypeIdentifier = null): ?APILocation
+    public function getFirstChild(?string $contentTypeIdentifier = null): null
     {
         return null;
     }
@@ -51,7 +51,7 @@ final class Location extends APILocation
      */
     public function filterSiblings(array $contentTypeIdentifiers = [], int $maxPerPage = 25, int $currentPage = 1): Pagerfanta
     {
-        return new Pagerfanta(new Adapter());
+        return new Pagerfanta(new LocationAdapter());
     }
 
     public function getSortClauses(): array

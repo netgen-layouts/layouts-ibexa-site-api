@@ -6,7 +6,10 @@ namespace Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs;
 
 use Pagerfanta\Adapter\AdapterInterface;
 
-final class Adapter implements AdapterInterface
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Netgen\IbexaSiteApi\API\Values\Location>
+ */
+final class LocationAdapter implements AdapterInterface
 {
     public function getNbResults(): int
     {
@@ -14,12 +17,9 @@ final class Adapter implements AdapterInterface
     }
 
     /**
-     * @param int $offset
-     * @param int $length
-     *
      * @return iterable<int, \Netgen\IbexaSiteApi\API\Values\Location>
      */
-    public function getSlice($offset, $length): iterable
+    public function getSlice(int $offset, int $length): iterable
     {
         return [];
     }

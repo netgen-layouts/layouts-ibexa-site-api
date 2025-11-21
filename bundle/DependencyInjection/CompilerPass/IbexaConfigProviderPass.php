@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class IbexaConfigProviderPass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_layouts.ibexa.block.block_definition.config_provider.ibexa';
+    private const string SERVICE_NAME = 'netgen_layouts.ibexa.block.block_definition.config_provider.ibexa';
 
     public function process(ContainerBuilder $container): void
     {

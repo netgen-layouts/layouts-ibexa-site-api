@@ -65,24 +65,4 @@ final class ContentValueUrlGeneratorTest extends TestCase
 
         self::assertSame('/admin/content/path', $this->urlGenerator->generateAdminUrl($contentInfo));
     }
-
-    public function testGenerate(): void
-    {
-        $contentInfo = new ContentInfo(
-            [
-                'id' => 42,
-            ],
-        );
-
-        $this->urlGeneratorMock
-            ->expects(self::once())
-            ->method('generate')
-            ->with(
-                self::identicalTo(UrlAliasRouter::URL_ALIAS_ROUTE_NAME),
-                self::identicalTo(['contentId' => 42]),
-            )
-            ->willReturn('/content/path');
-
-        self::assertSame('/content/path', $this->urlGenerator->generate($contentInfo));
-    }
 }

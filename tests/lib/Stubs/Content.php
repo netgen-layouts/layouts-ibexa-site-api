@@ -8,7 +8,6 @@ use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Core\FieldType\Null\Value as NullValue;
 use Netgen\IbexaSiteApi\API\Values\Content as APIContent;
 use Netgen\IbexaSiteApi\API\Values\Field as APIField;
-use Netgen\IbexaSiteApi\API\Values\Location;
 use Netgen\IbexaSiteApi\Core\Site\Values\Field;
 use Pagerfanta\Pagerfanta;
 
@@ -18,7 +17,7 @@ final class Content extends APIContent
 
     protected ContentInfo $contentInfo;
 
-    public function hasField(string $identifier): bool
+    public function hasField(string $identifier): false
     {
         return false;
     }
@@ -28,7 +27,7 @@ final class Content extends APIContent
         return new Field();
     }
 
-    public function hasFieldById(int $id): bool
+    public function hasFieldById(int $id): false
     {
         return false;
     }
@@ -63,7 +62,7 @@ final class Content extends APIContent
      */
     public function filterLocations(int $maxPerPage = 25, int $currentPage = 1): Pagerfanta
     {
-        return new Pagerfanta(new Adapter());
+        return new Pagerfanta(new LocationAdapter());
     }
 
     public function getFieldRelation(string $fieldDefinitionIdentifier): APIContent
@@ -85,10 +84,10 @@ final class Content extends APIContent
         int $maxPerPage = 25,
         int $currentPage = 1,
     ): Pagerfanta {
-        return new Pagerfanta(new Adapter());
+        return new Pagerfanta(new ContentAdapter());
     }
 
-    public function getFieldRelationLocation(string $fieldDefinitionIdentifier): ?Location
+    public function getFieldRelationLocation(string $fieldDefinitionIdentifier): null
     {
         return null;
     }
@@ -107,7 +106,7 @@ final class Content extends APIContent
         int $maxPerPage = 25,
         int $currentPage = 1,
     ): Pagerfanta {
-        return new Pagerfanta(new Adapter());
+        return new Pagerfanta(new LocationAdapter());
     }
 
     public function getSudoFieldRelation(string $fieldDefinitionIdentifier): APIContent
@@ -129,10 +128,10 @@ final class Content extends APIContent
         int $maxPerPage = 25,
         int $currentPage = 1,
     ): Pagerfanta {
-        return new Pagerfanta(new Adapter());
+        return new Pagerfanta(new ContentAdapter());
     }
 
-    public function getSudoFieldRelationLocation(string $fieldDefinitionIdentifier): ?Location
+    public function getSudoFieldRelationLocation(string $fieldDefinitionIdentifier): null
     {
         return null;
     }
@@ -151,7 +150,7 @@ final class Content extends APIContent
         int $maxPerPage = 25,
         int $currentPage = 1,
     ): Pagerfanta {
-        return new Pagerfanta(new Adapter());
+        return new Pagerfanta(new LocationAdapter());
     }
 
     public function getReverseFieldRelations(string $fieldDefinitionIdentifier, int $limit = 25): array
@@ -173,7 +172,7 @@ final class Content extends APIContent
         int $maxPerPage = 25,
         int $currentPage = 1,
     ): Pagerfanta {
-        return new Pagerfanta(new Adapter());
+        return new Pagerfanta(new ContentAdapter());
     }
 
     /**
@@ -185,7 +184,7 @@ final class Content extends APIContent
         int $maxPerPage = 25,
         int $currentPage = 1,
     ): Pagerfanta {
-        return new Pagerfanta(new Adapter());
+        return new Pagerfanta(new ContentAdapter());
     }
 
     public function getReverseFieldRelationLocations(string $fieldDefinitionIdentifier, int $limit = 25): array
@@ -207,7 +206,7 @@ final class Content extends APIContent
         int $maxPerPage = 25,
         int $currentPage = 1,
     ): Pagerfanta {
-        return new Pagerfanta(new Adapter());
+        return new Pagerfanta(new LocationAdapter());
     }
 
     /**
@@ -219,7 +218,7 @@ final class Content extends APIContent
         int $maxPerPage = 25,
         int $currentPage = 1,
     ): Pagerfanta {
-        return new Pagerfanta(new Adapter());
+        return new Pagerfanta(new LocationAdapter());
     }
 
     /**

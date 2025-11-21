@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Ibexa\SiteApi\Item\ValueUrlGenerator;
 
 use Ibexa\Core\MVC\Symfony\Routing\UrlAliasRouter;
-use Netgen\Layouts\Item\ExtendedValueUrlGeneratorInterface;
+use Netgen\Layouts\Item\ValueUrlGeneratorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * @implements \Netgen\Layouts\Item\ExtendedValueUrlGeneratorInterface<\Ibexa\Contracts\Core\Repository\Values\Content\Location|\Netgen\IbexaSiteApi\API\Values\Location>
+ * @implements \Netgen\Layouts\Item\ValueUrlGeneratorInterface<\Ibexa\Contracts\Core\Repository\Values\Content\Location|\Netgen\IbexaSiteApi\API\Values\Location>
  */
-final class LocationValueUrlGenerator implements ExtendedValueUrlGeneratorInterface
+final class LocationValueUrlGenerator implements ValueUrlGeneratorInterface
 {
-    public function __construct(private UrlGeneratorInterface $urlGenerator) {}
+    public function __construct(
+        private UrlGeneratorInterface $urlGenerator,
+    ) {}
 
     public function generateDefaultUrl(object $object): string
     {
@@ -34,10 +36,5 @@ final class LocationValueUrlGenerator implements ExtendedValueUrlGeneratorInterf
                 'locationId' => $object->id,
             ],
         );
-    }
-
-    public function generate(object $object): string
-    {
-        return $this->generateDefaultUrl($object);
     }
 }
