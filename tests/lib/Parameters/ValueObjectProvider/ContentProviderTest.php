@@ -59,7 +59,7 @@ final class ContentProviderTest extends TestCase
     public function testGetValueObjectWithNullValue(): void
     {
         $this->loadServiceMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadContent');
 
         self::assertNull($this->valueObjectProvider->getValueObject(null));

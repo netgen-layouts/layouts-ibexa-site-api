@@ -40,7 +40,7 @@ final class LocationValueConverterTest extends TestCase
     public function testSupports(): void
     {
         $this->innerConverterMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('supports');
 
         self::assertTrue($this->valueConverter->supports(new Location()));
@@ -51,7 +51,7 @@ final class LocationValueConverterTest extends TestCase
         $location = new IbexaLocation();
 
         $this->innerConverterMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('supports')
             ->with(self::identicalTo($location))
             ->willReturn(true);
@@ -62,7 +62,7 @@ final class LocationValueConverterTest extends TestCase
     public function testGetValueType(): void
     {
         $this->innerConverterMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('getValueType');
 
         self::assertSame(
@@ -76,7 +76,7 @@ final class LocationValueConverterTest extends TestCase
     public function testGetId(): void
     {
         $this->innerConverterMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('getId');
 
         self::assertSame(
@@ -92,7 +92,7 @@ final class LocationValueConverterTest extends TestCase
         $location = new IbexaLocation();
 
         $this->innerConverterMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getId')
             ->with(self::identicalTo($location))
             ->willReturn(42);
@@ -103,7 +103,7 @@ final class LocationValueConverterTest extends TestCase
     public function testGetRemoteId(): void
     {
         $this->innerConverterMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('getRemoteId');
 
         self::assertSame(
@@ -119,7 +119,7 @@ final class LocationValueConverterTest extends TestCase
         $location = new IbexaLocation();
 
         $this->innerConverterMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getRemoteId')
             ->with(self::identicalTo($location))
             ->willReturn('abc');
@@ -130,7 +130,7 @@ final class LocationValueConverterTest extends TestCase
     public function testGetName(): void
     {
         $this->innerConverterMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('getName');
 
         self::assertSame(
@@ -146,7 +146,7 @@ final class LocationValueConverterTest extends TestCase
         $location = new IbexaLocation();
 
         $this->innerConverterMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getName')
             ->with(self::identicalTo($location))
             ->willReturn('Cool name');
@@ -157,7 +157,7 @@ final class LocationValueConverterTest extends TestCase
     public function testGetIsVisible(): void
     {
         $this->innerConverterMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('getIsVisible');
 
         self::assertTrue(
@@ -172,7 +172,7 @@ final class LocationValueConverterTest extends TestCase
         $location = new IbexaLocation();
 
         $this->innerConverterMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getIsVisible')
             ->with(self::identicalTo($location))
             ->willReturn(true);
@@ -183,7 +183,7 @@ final class LocationValueConverterTest extends TestCase
     public function testGetObject(): void
     {
         $this->loadServiceMock
-            ->expects(self::never())
+            ->expects($this->never())
             ->method('loadLocation');
 
         $object = new Location(['id' => 42]);
@@ -196,7 +196,7 @@ final class LocationValueConverterTest extends TestCase
         $location = new Location();
 
         $this->loadServiceMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('loadLocation')
             ->with(self::identicalTo(42))
             ->willReturn($location);
