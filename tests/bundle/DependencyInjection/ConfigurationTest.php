@@ -85,11 +85,11 @@ final class ConfigurationTest extends TestCase
 
     protected function getConfiguration(): ConfigurationInterface
     {
-        $extensionMock = $this->createMock(ExtensionInterface::class);
-        $extensionMock
+        $extensionStub = self::createStub(ExtensionInterface::class);
+        $extensionStub
             ->method('getAlias')
             ->willReturn('alias');
 
-        return new Configuration($extensionMock);
+        return new Configuration($extensionStub);
     }
 }

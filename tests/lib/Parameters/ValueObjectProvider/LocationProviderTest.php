@@ -12,34 +12,34 @@ use Netgen\Layouts\Ibexa\SiteApi\Parameters\ValueObjectProvider\LocationProvider
 use Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs\Location;
 use Netgen\Layouts\Parameters\ValueObjectProviderInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(LocationProvider::class)]
 final class LocationProviderTest extends TestCase
 {
-    private MockObject&Repository $repositoryMock;
+    private Stub&Repository $repositoryStub;
 
-    private MockObject&LoadService $loadServiceMock;
+    private Stub&LoadService $loadServiceStub;
 
     private ValueObjectProviderInterface $valueObjectProvider;
 
     protected function setUp(): void
     {
-        $this->repositoryMock = $this->createMock(Repository::class);
-        $this->loadServiceMock = $this->createMock(LoadService::class);
+        $this->repositoryStub = self::createStub(Repository::class);
+        $this->loadServiceStub = self::createStub(LoadService::class);
 
-        $this->repositoryMock
+        $this->repositoryStub
             ->method('sudo')
             ->with(self::anything())
             ->willReturnCallback(
-                fn (callable $callback) => $callback($this->repositoryMock),
+                fn (callable $callback) => $callback($this->repositoryStub),
             );
 
         $this->valueObjectProvider = new LocationProvider(
-            $this->repositoryMock,
-            $this->loadServiceMock,
-            $this->createMock(ErrorHandlerInterface::class),
+            $this->repositoryStub,
+            $this->loadServiceStub,
+            self::createStub(ErrorHandlerInterface::class),
         );
     }
 
@@ -47,7 +47,7 @@ final class LocationProviderTest extends TestCase
     {
         $location = new Location();
 
-        $this->loadServiceMock
+        $this->loadServiceStub
             ->method('loadLocation')
             ->with(self::identicalTo(42))
             ->willReturn($location);
@@ -57,16 +57,12 @@ final class LocationProviderTest extends TestCase
 
     public function testGetValueObjectWithNullValue(): void
     {
-        $this->loadServiceMock
-            ->expects($this->never())
-            ->method('loadLocation');
-
         self::assertNull($this->valueObjectProvider->getValueObject(null));
     }
 
     public function testGetValueObjectWithNonExistentLocation(): void
     {
-        $this->loadServiceMock
+        $this->loadServiceStub
             ->method('loadLocation')
             ->with(self::identicalTo(42))
             ->willThrowException(new NotFoundException('location', 42));

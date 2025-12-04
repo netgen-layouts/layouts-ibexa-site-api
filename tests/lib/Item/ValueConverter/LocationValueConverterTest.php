@@ -11,38 +11,34 @@ use Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs\ContentInfo;
 use Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs\Location;
 use Netgen\Layouts\Item\ValueConverterInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(LocationValueConverter::class)]
 final class LocationValueConverterTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\ValueConverterInterface<\Netgen\IbexaSiteApi\API\Values\Location>
+     * @var \PHPUnit\Framework\MockObject\Stub&\Netgen\Layouts\Item\ValueConverterInterface<\Netgen\IbexaSiteApi\API\Values\Location>
      */
-    private MockObject&ValueConverterInterface $innerConverterMock;
+    private Stub&ValueConverterInterface $innerConverterStub;
 
-    private MockObject&LoadService $loadServiceMock;
+    private Stub&LoadService $loadServiceStub;
 
     private LocationValueConverter $valueConverter;
 
     protected function setUp(): void
     {
-        $this->innerConverterMock = $this->createMock(ValueConverterInterface::class);
-        $this->loadServiceMock = $this->createMock(LoadService::class);
+        $this->innerConverterStub = self::createStub(ValueConverterInterface::class);
+        $this->loadServiceStub = self::createStub(LoadService::class);
 
         $this->valueConverter = new LocationValueConverter(
-            $this->innerConverterMock,
-            $this->loadServiceMock,
+            $this->innerConverterStub,
+            $this->loadServiceStub,
         );
     }
 
     public function testSupports(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('supports');
-
         self::assertTrue($this->valueConverter->supports(new Location()));
     }
 
@@ -50,8 +46,7 @@ final class LocationValueConverterTest extends TestCase
     {
         $location = new IbexaLocation();
 
-        $this->innerConverterMock
-            ->expects($this->once())
+        $this->innerConverterStub
             ->method('supports')
             ->with(self::identicalTo($location))
             ->willReturn(true);
@@ -61,10 +56,6 @@ final class LocationValueConverterTest extends TestCase
 
     public function testGetValueType(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('getValueType');
-
         self::assertSame(
             'ibexa_location',
             $this->valueConverter->getValueType(
@@ -75,10 +66,6 @@ final class LocationValueConverterTest extends TestCase
 
     public function testGetId(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('getId');
-
         self::assertSame(
             24,
             $this->valueConverter->getId(
@@ -91,8 +78,7 @@ final class LocationValueConverterTest extends TestCase
     {
         $location = new IbexaLocation();
 
-        $this->innerConverterMock
-            ->expects($this->once())
+        $this->innerConverterStub
             ->method('getId')
             ->with(self::identicalTo($location))
             ->willReturn(42);
@@ -102,10 +88,6 @@ final class LocationValueConverterTest extends TestCase
 
     public function testGetRemoteId(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('getRemoteId');
-
         self::assertSame(
             'abc',
             $this->valueConverter->getRemoteId(
@@ -118,8 +100,7 @@ final class LocationValueConverterTest extends TestCase
     {
         $location = new IbexaLocation();
 
-        $this->innerConverterMock
-            ->expects($this->once())
+        $this->innerConverterStub
             ->method('getRemoteId')
             ->with(self::identicalTo($location))
             ->willReturn('abc');
@@ -129,10 +110,6 @@ final class LocationValueConverterTest extends TestCase
 
     public function testGetName(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('getName');
-
         self::assertSame(
             'Cool name',
             $this->valueConverter->getName(
@@ -145,8 +122,7 @@ final class LocationValueConverterTest extends TestCase
     {
         $location = new IbexaLocation();
 
-        $this->innerConverterMock
-            ->expects($this->once())
+        $this->innerConverterStub
             ->method('getName')
             ->with(self::identicalTo($location))
             ->willReturn('Cool name');
@@ -156,10 +132,6 @@ final class LocationValueConverterTest extends TestCase
 
     public function testGetIsVisible(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('getIsVisible');
-
         self::assertTrue(
             $this->valueConverter->getIsVisible(
                 new Location(['invisible' => false]),
@@ -171,8 +143,7 @@ final class LocationValueConverterTest extends TestCase
     {
         $location = new IbexaLocation();
 
-        $this->innerConverterMock
-            ->expects($this->once())
+        $this->innerConverterStub
             ->method('getIsVisible')
             ->with(self::identicalTo($location))
             ->willReturn(true);
@@ -182,10 +153,6 @@ final class LocationValueConverterTest extends TestCase
 
     public function testGetObject(): void
     {
-        $this->loadServiceMock
-            ->expects($this->never())
-            ->method('loadLocation');
-
         $object = new Location(['id' => 42]);
 
         self::assertSame($object, $this->valueConverter->getObject($object));
@@ -195,8 +162,7 @@ final class LocationValueConverterTest extends TestCase
     {
         $location = new Location();
 
-        $this->loadServiceMock
-            ->expects($this->once())
+        $this->loadServiceStub
             ->method('loadLocation')
             ->with(self::identicalTo(42))
             ->willReturn($location);

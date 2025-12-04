@@ -10,21 +10,21 @@ use Netgen\Layouts\Ibexa\SiteApi\Item\ValueLoader\ContentValueLoader;
 use Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs\Content;
 use Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs\ContentInfo;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ContentValueLoader::class)]
 final class ContentValueLoaderTest extends TestCase
 {
-    private MockObject&LoadService $loadServiceMock;
+    private Stub&LoadService $loadServiceStub;
 
     private ContentValueLoader $valueLoader;
 
     protected function setUp(): void
     {
-        $this->loadServiceMock = $this->createMock(LoadService::class);
+        $this->loadServiceStub = self::createStub(LoadService::class);
 
-        $this->valueLoader = new ContentValueLoader($this->loadServiceMock);
+        $this->valueLoader = new ContentValueLoader($this->loadServiceStub);
     }
 
     public function testLoad(): void
@@ -43,7 +43,7 @@ final class ContentValueLoaderTest extends TestCase
             ],
         );
 
-        $this->loadServiceMock
+        $this->loadServiceStub
             ->method('loadContent')
             ->with(self::identicalTo(52))
             ->willReturn($content);
@@ -53,7 +53,7 @@ final class ContentValueLoaderTest extends TestCase
 
     public function testLoadWithNoContent(): void
     {
-        $this->loadServiceMock
+        $this->loadServiceStub
             ->method('loadContent')
             ->with(self::identicalTo(52))
             ->willThrowException(new Exception());
@@ -76,7 +76,7 @@ final class ContentValueLoaderTest extends TestCase
             ],
         );
 
-        $this->loadServiceMock
+        $this->loadServiceStub
             ->method('loadContent')
             ->with(self::identicalTo(52))
             ->willReturn($content);
@@ -99,7 +99,7 @@ final class ContentValueLoaderTest extends TestCase
             ],
         );
 
-        $this->loadServiceMock
+        $this->loadServiceStub
             ->method('loadContent')
             ->with(self::identicalTo(52))
             ->willReturn($content);
@@ -123,7 +123,7 @@ final class ContentValueLoaderTest extends TestCase
             ],
         );
 
-        $this->loadServiceMock
+        $this->loadServiceStub
             ->method('loadContentByRemoteId')
             ->with(self::identicalTo('abc'))
             ->willReturn($content);
@@ -133,7 +133,7 @@ final class ContentValueLoaderTest extends TestCase
 
     public function testLoadByRemoteIdWithNoContent(): void
     {
-        $this->loadServiceMock
+        $this->loadServiceStub
             ->method('loadContentByRemoteId')
             ->with(self::identicalTo('abc'))
             ->willThrowException(new Exception());
@@ -156,7 +156,7 @@ final class ContentValueLoaderTest extends TestCase
             ],
         );
 
-        $this->loadServiceMock
+        $this->loadServiceStub
             ->method('loadContentByRemoteId')
             ->with(self::identicalTo('abc'))
             ->willReturn($content);
@@ -179,7 +179,7 @@ final class ContentValueLoaderTest extends TestCase
             ],
         );
 
-        $this->loadServiceMock
+        $this->loadServiceStub
             ->method('loadContentByRemoteId')
             ->with(self::identicalTo('abc'))
             ->willReturn($content);

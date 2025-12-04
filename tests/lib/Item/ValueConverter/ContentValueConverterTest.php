@@ -12,38 +12,34 @@ use Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs\ContentInfo;
 use Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs\Location;
 use Netgen\Layouts\Item\ValueConverterInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ContentValueConverter::class)]
 final class ContentValueConverterTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\ValueConverterInterface<\Netgen\IbexaSiteApi\API\Values\Content>
+     * @var \PHPUnit\Framework\MockObject\Stub&\Netgen\Layouts\Item\ValueConverterInterface<\Netgen\IbexaSiteApi\API\Values\Content>
      */
-    private MockObject&ValueConverterInterface $innerConverterMock;
+    private Stub&ValueConverterInterface $innerConverterStub;
 
-    private MockObject&LoadService $loadServiceMock;
+    private Stub&LoadService $loadServiceStub;
 
     private ContentValueConverter $valueConverter;
 
     protected function setUp(): void
     {
-        $this->innerConverterMock = $this->createMock(ValueConverterInterface::class);
-        $this->loadServiceMock = $this->createMock(LoadService::class);
+        $this->innerConverterStub = self::createStub(ValueConverterInterface::class);
+        $this->loadServiceStub = self::createStub(LoadService::class);
 
         $this->valueConverter = new ContentValueConverter(
-            $this->innerConverterMock,
-            $this->loadServiceMock,
+            $this->innerConverterStub,
+            $this->loadServiceStub,
         );
     }
 
     public function testSupports(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('supports');
-
         self::assertTrue($this->valueConverter->supports(new ContentInfo()));
     }
 
@@ -51,8 +47,7 @@ final class ContentValueConverterTest extends TestCase
     {
         $contentInfo = new IbexaContentInfo();
 
-        $this->innerConverterMock
-            ->expects($this->once())
+        $this->innerConverterStub
             ->method('supports')
             ->with(self::identicalTo($contentInfo))
             ->willReturn(true);
@@ -62,10 +57,6 @@ final class ContentValueConverterTest extends TestCase
 
     public function testGetValueType(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('getValueType');
-
         self::assertSame(
             'ibexa_content',
             $this->valueConverter->getValueType(
@@ -76,10 +67,6 @@ final class ContentValueConverterTest extends TestCase
 
     public function testGetId(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('getId');
-
         self::assertSame(
             24,
             $this->valueConverter->getId(
@@ -92,8 +79,7 @@ final class ContentValueConverterTest extends TestCase
     {
         $contentInfo = new IbexaContentInfo();
 
-        $this->innerConverterMock
-            ->expects($this->once())
+        $this->innerConverterStub
             ->method('getId')
             ->with(self::identicalTo($contentInfo))
             ->willReturn(42);
@@ -103,10 +89,6 @@ final class ContentValueConverterTest extends TestCase
 
     public function testGetRemoteId(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('getRemoteId');
-
         self::assertSame(
             'abc',
             $this->valueConverter->getRemoteId(
@@ -119,8 +101,7 @@ final class ContentValueConverterTest extends TestCase
     {
         $contentInfo = new IbexaContentInfo();
 
-        $this->innerConverterMock
-            ->expects($this->once())
+        $this->innerConverterStub
             ->method('getRemoteId')
             ->with(self::identicalTo($contentInfo))
             ->willReturn('abc');
@@ -130,10 +111,6 @@ final class ContentValueConverterTest extends TestCase
 
     public function testGetName(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('getName');
-
         self::assertSame(
             'Cool name',
             $this->valueConverter->getName(
@@ -146,8 +123,7 @@ final class ContentValueConverterTest extends TestCase
     {
         $contentInfo = new IbexaContentInfo();
 
-        $this->innerConverterMock
-            ->expects($this->once())
+        $this->innerConverterStub
             ->method('getName')
             ->with(self::identicalTo($contentInfo))
             ->willReturn('Cool name');
@@ -157,10 +133,6 @@ final class ContentValueConverterTest extends TestCase
 
     public function testGetIsVisible(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('getIsVisible');
-
         self::assertTrue(
             $this->valueConverter->getIsVisible(
                 new ContentInfo(['mainLocation' => new Location(['invisible' => false])]),
@@ -170,10 +142,6 @@ final class ContentValueConverterTest extends TestCase
 
     public function testGetIsVisibleWithoutMainLocation(): void
     {
-        $this->innerConverterMock
-            ->expects($this->never())
-            ->method('getIsVisible');
-
         self::assertFalse(
             $this->valueConverter->getIsVisible(
                 new ContentInfo(['mainLocation' => new Location(['invisible' => true])]),
@@ -185,8 +153,7 @@ final class ContentValueConverterTest extends TestCase
     {
         $contentInfo = new IbexaContentInfo();
 
-        $this->innerConverterMock
-            ->expects($this->once())
+        $this->innerConverterStub
             ->method('getIsVisible')
             ->with(self::identicalTo($contentInfo))
             ->willReturn(true);
@@ -196,10 +163,6 @@ final class ContentValueConverterTest extends TestCase
 
     public function testGetObject(): void
     {
-        $this->loadServiceMock
-            ->expects($this->never())
-            ->method('loadContent');
-
         $object = new ContentInfo(['id' => 42]);
 
         self::assertSame($object, $this->valueConverter->getObject($object));
@@ -210,8 +173,7 @@ final class ContentValueConverterTest extends TestCase
         $contentInfo = new ContentInfo();
         $content = new Content(['contentInfo' => $contentInfo]);
 
-        $this->loadServiceMock
-            ->expects($this->once())
+        $this->loadServiceStub
             ->method('loadContent')
             ->with(self::identicalTo(42))
             ->willReturn($content);

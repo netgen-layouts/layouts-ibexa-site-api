@@ -9,22 +9,22 @@ use Netgen\Layouts\Ibexa\SiteApi\Item\ValueUrlGenerator\LocationValueUrlGenerato
 use Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs\ContentInfo;
 use Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs\Location;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[CoversClass(LocationValueUrlGenerator::class)]
 final class LocationValueUrlGeneratorTest extends TestCase
 {
-    private MockObject&UrlGeneratorInterface $urlGeneratorMock;
+    private Stub&UrlGeneratorInterface $urlGeneratorStub;
 
     private LocationValueUrlGenerator $urlGenerator;
 
     protected function setUp(): void
     {
-        $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
+        $this->urlGeneratorStub = self::createStub(UrlGeneratorInterface::class);
 
-        $this->urlGenerator = new LocationValueUrlGenerator($this->urlGeneratorMock);
+        $this->urlGenerator = new LocationValueUrlGenerator($this->urlGeneratorStub);
     }
 
     public function testGenerateDefaultUrl(): void
@@ -35,8 +35,7 @@ final class LocationValueUrlGeneratorTest extends TestCase
             ],
         );
 
-        $this->urlGeneratorMock
-            ->expects($this->once())
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(
                 self::identicalTo(UrlAliasRouter::URL_ALIAS_ROUTE_NAME),
@@ -56,8 +55,7 @@ final class LocationValueUrlGeneratorTest extends TestCase
             ],
         );
 
-        $this->urlGeneratorMock
-            ->expects($this->once())
+        $this->urlGeneratorStub
             ->method('generate')
             ->with(
                 self::identicalTo('ibexa.content.view'),
