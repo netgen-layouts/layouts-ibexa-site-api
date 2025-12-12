@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 use function is_array;
+use function sprintf;
 
 final class DefaultAppPreviewPass implements CompilerPassInterface
 {
@@ -30,11 +31,11 @@ final class DefaultAppPreviewPass implements CompilerPassInterface
         $scopes = ['default', ...$siteAccessList];
 
         foreach ($scopes as $scope) {
-            if ($container->hasParameter("ibexa.site_access.config.{$scope}.ng_content_view")) {
+            if ($container->hasParameter(sprintf('ibexa.site_access.config.%s.ng_content_view', $scope))) {
                 /** @var array<string, mixed[]>|null $scopeRules */
-                $scopeRules = $container->getParameter("ibexa.site_access.config.{$scope}.ng_content_view");
+                $scopeRules = $container->getParameter(sprintf('ibexa.site_access.config.%s.ng_content_view', $scope));
                 $scopeRules = $this->addDefaultPreviewRule($scopeRules, $defaultRule);
-                $container->setParameter("ibexa.site_access.config.{$scope}.ng_content_view", $scopeRules);
+                $container->setParameter(sprintf('ibexa.site_access.config.%s.ng_content_view', $scope), $scopeRules);
             }
         }
     }
