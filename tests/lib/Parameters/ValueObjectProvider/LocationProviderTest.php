@@ -18,26 +18,24 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(LocationProvider::class)]
 final class LocationProviderTest extends TestCase
 {
-    private Stub&Repository $repositoryStub;
-
     private Stub&LoadService $loadServiceStub;
 
     private ValueObjectProviderInterface $valueObjectProvider;
 
     protected function setUp(): void
     {
-        $this->repositoryStub = self::createStub(Repository::class);
         $this->loadServiceStub = self::createStub(LoadService::class);
 
-        $this->repositoryStub
+        $repositoryStub = self::createStub(Repository::class);
+        $repositoryStub
             ->method('sudo')
             ->with(self::anything())
             ->willReturnCallback(
-                fn (callable $callback): mixed => $callback($this->repositoryStub),
+                static fn (callable $callback): mixed => $callback($repositoryStub),
             );
 
         $this->valueObjectProvider = new LocationProvider(
-            $this->repositoryStub,
+            $repositoryStub,
             $this->loadServiceStub,
             self::createStub(ErrorHandlerInterface::class),
         );
