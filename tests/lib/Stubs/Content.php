@@ -221,7 +221,7 @@ final class Content extends APIContent
     }
 
     /**
-     * @param array<string, mixed> $parameters
+     * @param mixed[] $parameters
      */
     public function getPath(array $parameters = []): string
     {
@@ -229,7 +229,7 @@ final class Content extends APIContent
     }
 
     /**
-     * @param array<string, mixed> $parameters
+     * @param mixed[] $parameters
      */
     public function getUrl(array $parameters = []): string
     {
