@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs;
 use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Core\FieldType\Null\Value as NullValue;
 use Netgen\IbexaSiteApi\API\Values\Content as APIContent;
-use Netgen\IbexaSiteApi\API\Values\Field as APIField;
 use Netgen\IbexaSiteApi\Core\Site\Values\Field;
 use Pagerfanta\Pagerfanta;
 
@@ -22,7 +21,7 @@ final class Content extends APIContent
         return false;
     }
 
-    public function getField(string $identifier): APIField
+    public function getField(string $identifier): Field
     {
         return new Field();
     }
@@ -32,12 +31,12 @@ final class Content extends APIContent
         return false;
     }
 
-    public function getFieldById(int $id): APIField
+    public function getFieldById(int $id): Field
     {
         return new Field();
     }
 
-    public function getFirstNonEmptyField(string $firstIdentifier, string ...$otherIdentifiers): APIField
+    public function getFirstNonEmptyField(string $firstIdentifier, string ...$otherIdentifiers): Field
     {
         return new Field();
     }
@@ -65,7 +64,7 @@ final class Content extends APIContent
         return new Pagerfanta(new LocationAdapter());
     }
 
-    public function getFieldRelation(string $fieldDefinitionIdentifier): APIContent
+    public function getFieldRelation(string $fieldDefinitionIdentifier): self
     {
         return new self();
     }
@@ -109,7 +108,7 @@ final class Content extends APIContent
         return new Pagerfanta(new LocationAdapter());
     }
 
-    public function getSudoFieldRelation(string $fieldDefinitionIdentifier): APIContent
+    public function getSudoFieldRelation(string $fieldDefinitionIdentifier): self
     {
         return new self();
     }
