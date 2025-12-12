@@ -15,9 +15,6 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 final class NetgenLayoutsIbexaSiteApiExtension extends Extension
 {
-    /**
-     * @param mixed[] $configs
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = $this->getConfiguration($configs, $container);

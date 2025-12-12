@@ -25,7 +25,7 @@ final class Location extends APILocation
     }
 
     /**
-     * @param array<mixed> $contentTypeIdentifiers
+     * @param mixed[] $contentTypeIdentifiers
      *
      * @return \Pagerfanta\Pagerfanta<\Netgen\IbexaSiteApi\API\Values\Location>
      */
@@ -45,7 +45,7 @@ final class Location extends APILocation
     }
 
     /**
-     * @param array<mixed> $contentTypeIdentifiers
+     * @param mixed[] $contentTypeIdentifiers
      *
      * @return \Pagerfanta\Pagerfanta<\Netgen\IbexaSiteApi\API\Values\Location>
      */
