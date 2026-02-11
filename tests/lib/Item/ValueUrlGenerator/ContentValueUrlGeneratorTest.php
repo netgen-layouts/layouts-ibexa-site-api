@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Ibexa\SiteApi\Tests\Item\ValueUrlGenerator;
 
-use Ibexa\Core\MVC\Symfony\Routing\UrlAliasRouter;
 use Netgen\Layouts\Ibexa\SiteApi\Item\ValueUrlGenerator\ContentValueUrlGenerator;
 use Netgen\Layouts\Ibexa\SiteApi\Tests\Stubs\ContentInfo;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -36,10 +35,6 @@ final class ContentValueUrlGeneratorTest extends TestCase
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(
-                self::identicalTo(UrlAliasRouter::URL_ALIAS_ROUTE_NAME),
-                self::identicalTo(['contentId' => 42]),
-            )
             ->willReturn('/content/path');
 
         self::assertSame('/content/path', $this->urlGenerator->generateDefaultUrl($contentInfo));
@@ -55,10 +50,6 @@ final class ContentValueUrlGeneratorTest extends TestCase
 
         $this->urlGeneratorStub
             ->method('generate')
-            ->with(
-                self::identicalTo('ibexa.content.view'),
-                self::identicalTo(['contentId' => 42]),
-            )
             ->willReturn('/admin/content/path');
 
         self::assertSame('/admin/content/path', $this->urlGenerator->generateAdminUrl($contentInfo));

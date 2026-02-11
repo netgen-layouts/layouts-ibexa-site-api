@@ -29,7 +29,6 @@ final class LocationProviderTest extends TestCase
         $repositoryStub = self::createStub(Repository::class);
         $repositoryStub
             ->method('sudo')
-            ->with(self::anything())
             ->willReturnCallback(
                 static fn (callable $callback): mixed => $callback($repositoryStub),
             );
@@ -47,7 +46,6 @@ final class LocationProviderTest extends TestCase
 
         $this->loadServiceStub
             ->method('loadLocation')
-            ->with(self::identicalTo(42))
             ->willReturn($location);
 
         self::assertSame($location, $this->valueObjectProvider->getValueObject(42));
@@ -62,7 +60,6 @@ final class LocationProviderTest extends TestCase
     {
         $this->loadServiceStub
             ->method('loadLocation')
-            ->with(self::identicalTo(42))
             ->willThrowException(new NotFoundException('location', 42));
 
         self::assertNull($this->valueObjectProvider->getValueObject(42));

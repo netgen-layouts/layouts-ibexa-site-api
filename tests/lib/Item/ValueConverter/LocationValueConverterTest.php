@@ -48,7 +48,6 @@ final class LocationValueConverterTest extends TestCase
 
         $this->innerConverterStub
             ->method('supports')
-            ->with(self::identicalTo($location))
             ->willReturn(true);
 
         self::assertTrue($this->valueConverter->supports($location));
@@ -80,7 +79,6 @@ final class LocationValueConverterTest extends TestCase
 
         $this->innerConverterStub
             ->method('getId')
-            ->with(self::identicalTo($location))
             ->willReturn(42);
 
         self::assertSame(42, $this->valueConverter->getId($location));
@@ -102,7 +100,6 @@ final class LocationValueConverterTest extends TestCase
 
         $this->innerConverterStub
             ->method('getRemoteId')
-            ->with(self::identicalTo($location))
             ->willReturn('abc');
 
         self::assertSame('abc', $this->valueConverter->getRemoteId($location));
@@ -124,7 +121,6 @@ final class LocationValueConverterTest extends TestCase
 
         $this->innerConverterStub
             ->method('getName')
-            ->with(self::identicalTo($location))
             ->willReturn('Cool name');
 
         self::assertSame('Cool name', $this->valueConverter->getName($location));
@@ -145,7 +141,6 @@ final class LocationValueConverterTest extends TestCase
 
         $this->innerConverterStub
             ->method('getIsVisible')
-            ->with(self::identicalTo($location))
             ->willReturn(true);
 
         self::assertTrue($this->valueConverter->getIsVisible($location));
@@ -164,7 +159,6 @@ final class LocationValueConverterTest extends TestCase
 
         $this->loadServiceStub
             ->method('loadLocation')
-            ->with(self::identicalTo(42))
             ->willReturn($location);
 
         self::assertSame($location, $this->valueConverter->getObject(new IbexaLocation(['id' => 42])));

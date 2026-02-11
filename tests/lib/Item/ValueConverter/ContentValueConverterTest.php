@@ -49,7 +49,6 @@ final class ContentValueConverterTest extends TestCase
 
         $this->innerConverterStub
             ->method('supports')
-            ->with(self::identicalTo($contentInfo))
             ->willReturn(true);
 
         self::assertTrue($this->valueConverter->supports($contentInfo));
@@ -81,7 +80,6 @@ final class ContentValueConverterTest extends TestCase
 
         $this->innerConverterStub
             ->method('getId')
-            ->with(self::identicalTo($contentInfo))
             ->willReturn(42);
 
         self::assertSame(42, $this->valueConverter->getId($contentInfo));
@@ -103,7 +101,6 @@ final class ContentValueConverterTest extends TestCase
 
         $this->innerConverterStub
             ->method('getRemoteId')
-            ->with(self::identicalTo($contentInfo))
             ->willReturn('abc');
 
         self::assertSame('abc', $this->valueConverter->getRemoteId($contentInfo));
@@ -125,7 +122,6 @@ final class ContentValueConverterTest extends TestCase
 
         $this->innerConverterStub
             ->method('getName')
-            ->with(self::identicalTo($contentInfo))
             ->willReturn('Cool name');
 
         self::assertSame('Cool name', $this->valueConverter->getName($contentInfo));
@@ -155,7 +151,6 @@ final class ContentValueConverterTest extends TestCase
 
         $this->innerConverterStub
             ->method('getIsVisible')
-            ->with(self::identicalTo($contentInfo))
             ->willReturn(true);
 
         self::assertTrue($this->valueConverter->getIsVisible($contentInfo));
@@ -175,7 +170,6 @@ final class ContentValueConverterTest extends TestCase
 
         $this->loadServiceStub
             ->method('loadContent')
-            ->with(self::identicalTo(42))
             ->willReturn($content);
 
         self::assertSame($contentInfo, $this->valueConverter->getObject(new IbexaContentInfo(['id' => 42])));
